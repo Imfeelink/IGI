@@ -1,11 +1,9 @@
-import circle  # Импортируем файл из библиотеки
+import circle  
 import square
-import os      # Для работы с переменными окружения
+import os      
 
 def main():
-    # Получаем значение из переменной окружения RADIUS, если её нет — берем 5
     radius = float(os.getenv("RADIUS", 5))
-    # Получаем значение стороны квадрата SIDE, если её нет — берем 10
     side = float(os.getenv("SIDE", 10))
 
     print(f"--- Результаты расчетов ---")
