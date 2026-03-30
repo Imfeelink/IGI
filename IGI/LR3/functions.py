@@ -38,10 +38,11 @@ def repeat_run(func):
     return wrapper
 
 #1
-def get_ln_series_member(x: float, n: int) -> float:
+def get_ln_series_member(x: Decimal, n: int) -> Decimal:
     '''calculates n-th member of ln(1-x) series'''
     return (-1 * x**n / n)
 
+#3
 def get_spaces_commas(string: str) -> tuple[int, int]:
     '''returns count of spaces and commas of given string'''
     spaces_count = 0
@@ -50,3 +51,11 @@ def get_spaces_commas(string: str) -> tuple[int, int]:
         if(symbol == ' '): spaces_count += 1
         elif(symbol == ','): commas_count += 1
     return (spaces_count, commas_count)
+
+def count_words_shorter_then(string: str, length: int) -> int:
+    count = 0
+    words = string.split()
+    for word in words:
+        print(word) 
+        if(len(word) < length): count += 1
+    return count

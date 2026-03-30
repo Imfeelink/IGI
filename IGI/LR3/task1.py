@@ -29,10 +29,10 @@ def task1_main():
         member = functions.get_ln_series_member(x, i)
         if(abs(member) < EPS):
             print(f"x = {x} \
-                    n = {i} \
-                    ln(1-x) = {sum} \
-                    Math ln(1-x) = {math.log(1-x)} \
-                    eps = {EPS}")
+                    \nn = {i} \
+                    \nln(1-x) = {sum} \
+                    \nMath ln(1-x) = {math.log(1-x)} \
+                    \neps = {EPS}")
             break
         elif(i == MAX_ITERATIONS):
             print("Needed accuracy wasn't achieved")
