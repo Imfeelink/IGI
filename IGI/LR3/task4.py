@@ -14,15 +14,16 @@ STRING = "So she was considering in her own mind, as well as she could, for the 
 very sleepy and stupid, whether the pleasure of making a daisy-chain would be worth the trouble \
 of getting up and picking the daisies, when suddenly a White Rabbit with pink eyes ran close by \
 her."
-#45
-#need 46: stupid, WRONG, stupid RIGHT
-
 
 @functions.repeat_run
 def task4_main():
     lower_string = STRING.lower()
-    print(functions.count_words_shorter_then(lower_string, 7))
-    
+    print(f"count of words shorter than 7 symbols: {functions.count_words_shorter_then(lower_string, 7)}")
+    print(f"the shortest word ending on 'a': {functions.find_shortest_word_ending_on_letter(lower_string, 'a')}")
+    print("words in descending order:")
+    sorted_words = functions.get_words_descending_order(lower_string)
+    for word in sorted_words:
+        print(word)
 
 if(__name__ == "__main__"):
     task4_main()

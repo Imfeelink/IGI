@@ -52,10 +52,32 @@ def get_spaces_commas(string: str) -> tuple[int, int]:
         elif(symbol == ','): commas_count += 1
     return (spaces_count, commas_count)
 
+def get_words_from_string(string: str) -> str:
+    '''returns list of words from string'''
+    clean_string = string.replace(',', ' ').replace('.', ' ')
+    return clean_string.split()
+
+#4
 def count_words_shorter_then(string: str, length: int) -> int:
+    '''returns count of words shorter then given length'''
     count = 0
-    words = string.split()
+    words = get_words_from_string(string)
     for word in words:
-        print(word) 
         if(len(word) < length): count += 1
     return count
+
+#4
+def find_shortest_word_ending_on_letter(string: str, letter: str) -> str:
+    '''returns the shortest word in string ending on given letter'''
+    shortest_word = None
+    words = get_words_from_string(string)
+    for word in words:
+        if(shortest_word == None or (word[-1] == letter and len(word) < len(shortest_word))): shortest_word = word
+    return shortest_word
+
+#4
+def get_words_descending_order(string: str) -> list[str]:
+    '''returns list of words from string in descending order'''
+    words = get_words_from_string(string)
+    words = sorted(words, key=len, reverse=True)
+    return words
