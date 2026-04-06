@@ -7,14 +7,15 @@ Kryshalovih Ivan Pavlovich
 30.03.2026 
 '''
 
-import functions
+import task_funcs
+import decorators
 
-@functions.repeat_run
+@decorators.repeat_run
 def task3_main():
     '''Gets string
     Returns number of spaces and commas'''
     string_to_search = input("print your string: ")
-    result = functions.get_spaces_commas(string_to_search)
+    result = task_funcs.get_spaces_commas(string_to_search)
     print(f"spaces: {result[0]}, commas: {result[1]}")
 
 

@@ -7,12 +7,14 @@ v1
 Kryshalovih Ivan Pavlovich
 29.03.2026 
 '''
-import functions
-from functions import math
+import task_funcs
+from task_funcs import math
+import decorators
+from general_funcs import *
 EPS = 0.001
 MAX_ITERATIONS = 500
 
-@functions.repeat_run
+@decorators.repeat_run
 def task1_main():
     '''calculates sum of a series until epsilant precision
     counts necessary members
@@ -20,19 +22,19 @@ def task1_main():
     print("Task 1")
 
     while True:
-        x = functions.get_decimal_number("print x, |x| < 1: ")
+        x = get_decimal_number("print x, |x| < 1: ")
         if(abs(x) < 1): break
 
     sum = 0
 
     for i in range(1, MAX_ITERATIONS+1):
-        member = functions.get_ln_series_member(x, i)
+        member = task_funcs.get_ln_series_member(x, i)
+        print(f"x = {x:<8}", end="\t")
+        print(f"n = {i:<8}", end="\t")
+        print(f"ln(1-x) = {round(sum, 5):<8}", end="\t")
+        print(f"Math ln(1-x) = {round(math.log(1-x), 5):<12}", end="\t")
+        print("eps = {EPS}")
         if(abs(member) < EPS):
-            print(f"x = {x} \
-                    \nn = {i} \
-                    \nln(1-x) = {sum} \
-                    \nMath ln(1-x) = {math.log(1-x)} \
-                    \neps = {EPS}")
             break
         elif(i == MAX_ITERATIONS):
             print("Needed accuracy wasn't achieved")

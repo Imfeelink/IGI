@@ -7,16 +7,18 @@ Kryshalovih Ivan Pavlovich
 30.03.2026 
 '''
 
-import functions
+import task_funcs
+import decorators
+from general_funcs import *
 
-@functions.repeat_run
+@decorators.repeat_run
 def task2_main():
     '''Gets int numbers and subtracts them from 10000
     Ends when result of last subtract is negative'''
     task_number = 10000
     while(task_number >= 0):
         print(f"Changing number: {task_number}")
-        num = functions.get_int_number("print int num: ")
+        num = get_int_number("print int num: ")
         task_number -= num
     
     print(f"Program ended, result: {task_number}")
