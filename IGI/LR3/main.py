@@ -1,3 +1,2 @@
-from general_funcs import *
-
-a = get_int_number("print your num: ")
+import task_funcs
+print(help(task_funcs.get_ln_series_member))

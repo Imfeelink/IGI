@@ -5,12 +5,12 @@ from general_funcs import *
 
 #1
 def get_ln_series_member(x: Decimal, n: int) -> Decimal:
-    '''calculates n-th member of ln(1-x) series'''
+    '''calculates n-th member of ln(1-x) series.'''
     return (-1 * x**n / n)
 
 #3
 def get_spaces_commas(string: str) -> tuple[int, int]:
-    '''returns count of spaces and commas of given string'''
+    '''returns count of spaces and commas of given string.'''
     spaces_count = 0
     commas_count = 0
     for symbol in string:
@@ -20,7 +20,7 @@ def get_spaces_commas(string: str) -> tuple[int, int]:
 
 #4
 def count_words_shorter_then(string: str, length: int) -> int:
-    '''returns count of words shorter then given length'''
+    '''returns count of words shorter then given length.'''
     count = 0
     words = get_words_from_string(string)
     for word in words:
@@ -28,7 +28,7 @@ def count_words_shorter_then(string: str, length: int) -> int:
     return count
 
 def find_shortest_word_ending_on_letter(string: str, letter: str) -> str:
-    '''returns the shortest word in string ending on given letter'''
+    '''returns the shortest word in string ending on given letter.'''
     shortest_word = None
     words = get_words_from_string(string)
     for word in words:
@@ -36,7 +36,7 @@ def find_shortest_word_ending_on_letter(string: str, letter: str) -> str:
     return shortest_word
 
 def get_words_descending_order(string: str) -> list[str]:
-    '''returns list of words from string in descending order'''
+    '''returns list of words from string in descending order.'''
     words = get_words_from_string(string)
     words = sorted(words, key=len, reverse=True)
     return words
