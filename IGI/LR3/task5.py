@@ -6,7 +6,7 @@ return sum of elements between first two negative elements
 Lab #3
 v1
 Kryshalovih Ivan Pavlovich
-30.03.2026 
+01.04.2026 
 '''
 
 import task_funcs
