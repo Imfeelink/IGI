@@ -4,7 +4,7 @@ Finds the shortest word ending in "a"
 Prints words in descending order of their lengths.
 Lab #3
 v1
-Kryshalovih Ivan Pavlovich
+Kryshalovich Ivan Pavlovich
 30.03.2026 
 '''
 

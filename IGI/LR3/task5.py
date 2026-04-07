@@ -5,7 +5,7 @@ return index of minimal negative element
 return sum of elements between first two negative elements
 Lab #3
 v1
-Kryshalovih Ivan Pavlovich
+Kryshalovich Ivan Pavlovich
 01.04.2026 
 '''
 

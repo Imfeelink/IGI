@@ -3,7 +3,7 @@ Gets string
 Returns number of spaces and commas
 Lab #3
 v1
-Kryshalovih Ivan Pavlovich
+Kryshalovich Ivan Pavlovich
 30.03.2026 
 '''
 

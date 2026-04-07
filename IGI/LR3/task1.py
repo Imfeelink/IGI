@@ -4,7 +4,7 @@ counts necessary members
 prints result of python function calculating same sum of a series 
 Lab #3
 v1
-Kryshalovih Ivan Pavlovich
+Kryshalovich Ivan Pavlovich
 29.03.2026 
 '''
 import task_funcs

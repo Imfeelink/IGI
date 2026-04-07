@@ -3,7 +3,7 @@ Gets int numbers and subtracts them from 10000
 Ends when result of last subtract is negative
 Lab #3
 v1
-Kryshalovih Ivan Pavlovich
+Kryshalovich Ivan Pavlovich
 30.03.2026 
 '''
 
