@@ -1,3 +1,5 @@
+import re
+
 class Person:
     def __init__(self, age, name):
         self.age = age
@@ -7,3 +9,5 @@ person_list = []
 
 class Woman(Person):
     pass
+
+print(1 / 2)
