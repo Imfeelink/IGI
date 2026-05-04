@@ -1,0 +1,11 @@
+  1. Sentences: 4
+  2. Declarative sentences: 2
+  3. Interrogative_sentences: 1
+  4. Exclamatory sentences: 1
+  5. Average sentence length: 8.0
+  6. Average word length: 4.57
+  7. Years: 2005, 1991
+  8. Specific ending words: sixsIX, fap, yellow
+  9. Words starting with vowel letter: 2
+  10. Words with two identical letters in a row with index: yellow: 5
+  11. Words in alphabetical order: aloha, fap, papa, sixsIX, yellow

@@ -10,7 +10,7 @@ Get info about zip archieve
 Kryshalovich Ivan Pavlovich
 task2
 var14
-14.04.2026
+03.05.2026
 '''
 
 import sys
@@ -25,13 +25,8 @@ import mixins
 from task2_classes import *
 
 def task2_main():
-    analyze_manager = BaseTextAnalyzer("file_to_analyze.txt")
-    print(analyze_manager.sentence_count())
-    print(analyze_manager.declarative_sentence_count())
-    print(analyze_manager.interrogative_sentence_count())
-    print(analyze_manager.exclamatory_sentence_count())
-    print(analyze_manager.avg_sentence_length())
-    print(analyze_manager.avg_word_length())
+    analyze_manager = VariantAnalyzer("file_to_analyze.txt", "file_info.txt")
+    analyze_manager.analyze_save_info()
 
 if __name__ == "__main__":
     task2_main()
