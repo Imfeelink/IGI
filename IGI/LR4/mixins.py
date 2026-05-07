@@ -5,8 +5,8 @@ class LogMixin:
     def log(self, message: str):
         print(f"[LOG]: {message}")
 
+#2
 class ZipArchieverMixin:
-    #user defines archieve name
     def pack_to_zip(self, file_to_pack: str, archieve_name: str):
         with ZipFile(archieve_name, 'w', compression=ZIP_DEFLATED, compresslevel=3) as myzip:
             myzip.write(file_to_pack)
