@@ -1,13 +1,5 @@
-import re
+import numpy as np
+from numpy import random
 
-class Person:
-    def __init__(self, age, name):
-        self.age = age
-        self.name = name
-    
-person_list = []
-
-class Woman(Person):
-    pass
-
-print(1 / 2)
+arr = np.array([[1,2,3],[4,5,6],[7,8,9]])
+print(arr.var())

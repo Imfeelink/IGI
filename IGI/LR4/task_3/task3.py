@@ -12,7 +12,7 @@ Kryshalovich Ivan Pavlovich
 '''
 import task3_classes
 
-def task1_main():
+def task3_main():
     '''
     calculates sum of a series until epsilant precision
     counts necessary members
@@ -38,4 +38,4 @@ def task1_main():
     ) 
 
 if(__name__ == "__main__"):
-    task1_main()
+    task3_main()
