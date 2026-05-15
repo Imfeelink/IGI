@@ -10,6 +10,7 @@ Kryshalovich Ivan Pavlovich
 """
 
 from task6_classes import MelbourneHousingAnalyzer
+import pandas as pd
 
 def task6_main():
     csv_file = "melb_data.csv"
@@ -20,7 +21,8 @@ def task6_main():
         print("\n[Task A] MultiIndex Series:")
         multi_series = analyzer.perform_task_a()
 
-        print(multi_series.head())
+        print(multi_series)
+        
         print(f"\nIndex levels names: {multi_series.index.names}")
 
         print("\n[Task B] Statistical Analysis:")

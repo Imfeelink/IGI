@@ -10,7 +10,7 @@ import mixins
 import re
 
 class BaseTextAnalyzer(mixins.LogMixin):
-    #filename - имя файла, в котором текст для анализа
+    #filename - filename with text to analyze
     def __init__(self, filename: str, saved_info_filename: str):
         self.filename = filename
         self.saved_info_filename = saved_info_filename

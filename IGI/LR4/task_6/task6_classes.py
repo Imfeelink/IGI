@@ -1,11 +1,3 @@
-"""
-Lab 4: Files, Classes, Serializers, Regular Expressions, and Standard Libraries.
-Task: 6, Variant 14.
-Provides classes for analyzing the Melbourne Housing dataset using Pandas.
-Author: Kryshalovich Ivan Pavlovich
-Date: 14.05.2026
-"""
-
 import pandas as pd
 import os
 from abc import ABC, abstractmethod
