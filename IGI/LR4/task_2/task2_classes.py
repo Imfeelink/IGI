@@ -41,13 +41,15 @@ class BaseTextAnalyzer(mixins.LogMixin):
 
     def sentence_count(self) -> int:
         '''counts . ! ? in any order and count'''
-        punctuation_groups = re.findall(r'[^\s.!?][^.!?]*[.!?]+', self.filetext)
+        pattern = r'(?<!\s)[.!?]+(?=\s|$)'
+        punctuation_groups = re.findall(pattern, self.filetext)
         return len(punctuation_groups)
     
     def declarative_sentence_count(self) -> int:
         '''counts declarative sentences
         declaratives sentences ends on '.' '''
-        declarative_sentences = re.findall(r'[^\s.!?][^.!?]*[.]+(?![!?])', self.filetext)
+        pattern = r'(?<![\s.!?])\.+(?=\s|$)'
+        declarative_sentences = re.findall(pattern, self.filetext)
         return len(declarative_sentences)
     
     def interrogative_sentence_count(self) -> int:

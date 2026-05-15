@@ -2,10 +2,10 @@
   2. Declarative sentences: 1
   3. Interrogative_sentences: 1
   4. Exclamatory sentences: 2
-  5. Average sentence length: 7.75
-  6. Average word length: 5.17
-  7. Years: 
-  8. Specific ending words: 
-  9. Words starting with vowel letter: 3
+  5. Average sentence length: 17.75
+  6. Average word length: 4.44
+  7. Years: 2007, 2026
+  8. Specific ending words: red
+  9. Words starting with vowel letter: 2
   10. Words with two identical letters in a row with index: Hello: 1
-  11. Words in alphabetical order: again, evening, Hello, MCHA, Once, Spring
+  11. Words in alphabetical order: anisimovu, detstvo, evening, Hello, lublu, mcha, red, spasibo, Spring, za
