@@ -59,12 +59,16 @@ class MelbourneHousingAnalyzer(BasePandasAnalyzer):
             raise KeyError("Dataset must contain 'Rooms' and 'Price' columns.")
 
         max_rooms = self.df['Rooms'].max()
+        print("MAX ROOMS: ", max_rooms)
         
         min_rooms = self.df[self.df['Rooms'] > 0]['Rooms'].min()
+        print("MIN ROOMS: ", min_rooms)
 
         avg_price_max = self.df[self.df['Rooms'] == max_rooms]['Price'].mean()
+        print("AVERAGE MAX PRICE: ", avg_price_max)
 
         avg_price_min = self.df[self.df['Rooms'] == min_rooms]['Price'].mean()
+        print("AVERAGE MIN PRICE:", round(avg_price_min, 2))
 
         if avg_price_min == 0 or pd.isna(avg_price_min):
             return 0.0
