@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+{% block title %}Отзыв{% endblock %}
+{% block content %}
+<h1>{{ review.property_obj.title }}</h1>
+<p>★{{ review.rating }} — {{ review.user.username }}</p>
+<p>{{ review.text }}</p>
+{% endblock %}

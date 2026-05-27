@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load date_filters %}
+{% block title %}{{ property.title }}{% endblock %}
+{% block content %}
+<h1>{{ property.title }}</h1>
+<p><strong>Цена:</strong> {{ property.price }} BYN | <strong>Категория:</strong> {{ property.category.name }}</p>
+<p>{{ property.description }}</p>
+<p><strong>Характеристики:</strong> {{ property.characteristics }}</p>
+<p><strong>Владелец:</strong> {{ property.owner.full_name }} ({{ property.owner.phone }})</p>
+{% if property.employee %}<p><strong>Риэлтор:</strong> {{ property.employee.username }}</p>{% endif %}
+<p><strong>Добавлен:</strong> {{ property.created_at|ddmmyyyy }} | <strong>Изменён:</strong> {{ property.updated_at|ddmmyyyy }}</p>
+{% if property.amenities.exists %}<p><strong>Удобства:</strong> {% for a in property.amenities.all %}{{ a.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>{% endif %}
+{% endblock %}

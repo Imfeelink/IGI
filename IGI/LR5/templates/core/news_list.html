@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %}Новости{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1>Новости</h1>
+    {% if user.is_staff %}<a href="{% url 'core:news_create' %}" class="btn btn-success">+ Новость</a>{% endif %}
+</div>
+<form method="get" class="row g-2 mb-3">
+    <div class="col-md-6"><input type="search" name="q" value="{{ q }}" class="form-control" placeholder="Поиск"></div>
+    <div class="col-md-4">
+        <select name="sort" class="form-select">
+            <option value="-created_at" {% if sort == '-created_at' %}selected{% endif %}>Новые первые</option>
+            <option value="created_at" {% if sort == 'created_at' %}selected{% endif %}>Старые первые</option>
+            <option value="title" {% if sort == 'title' %}selected{% endif %}>По названию А-Я</option>
+            <option value="-title" {% if sort == '-title' %}selected{% endif %}>По названию Я-А</option>
+        </select>
+    </div>
+    <div class="col-md-2"><button class="btn btn-primary w-100">OK</button></div>
+</form>
+<div class="row">
+{% for item in news_list %}
+<div class="col-md-6 mb-4">
+    <div class="card h-100">
+        {% if item.image %}<img src="{{ item.image.url }}" class="card-img-top" alt="" style="height:180px;object-fit:cover;">{% endif %}
+        <div class="card-body">
+            <h5>{{ item.title }}</h5>
+            <p class="text-muted small">{{ item.created_at|date:"d.m.Y H:i" }}</p>
+            <p>{{ item.short_description }}</p>
+            <a href="{% url 'core:news_detail' item.pk %}" class="btn btn-sm btn-primary">Читать далее</a>
+            {% if user.is_staff %}
+            <a href="{% url 'core:news_update' item.pk %}" class="btn btn-sm btn-warning">Изм.</a>
+            <a href="{% url 'core:news_delete' item.pk %}" class="btn btn-sm btn-danger">Удал.</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% empty %}
+<p>Новостей нет.</p>
+{% endfor %}
+</div>
+{% endblock %}
