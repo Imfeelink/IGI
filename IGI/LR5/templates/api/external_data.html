@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}Внешние API{% endblock %}
+{% block content %}
+<h1>Данные из внешних API</h1>
+<div class="row">
+<div class="col-md-6">
+<div class="card p-3 mb-3">
+<h3>Погода ({{ weather.source|default:"—" }})</h3>
+{% if weather.error %}
+<p class="text-danger">{{ weather.error }}</p>
+{% else %}
+<p>{{ weather.city }}: {{ weather.temp }}°C, {{ weather.description }}</p>
+<p>Влажность: {{ weather.humidity }}</p>
+{% endif %}
+</div>
+</div>
+<div class="col-md-6">
+<div class="card p-3 mb-3">
+<h3>Курсы валют ({{ exchange.source|default:"—" }})</h3>
+{% if exchange.error %}
+<p class="text-danger">{{ exchange.error }}</p>
+{% else %}
+<p>База: {{ exchange.base }}, дата: {{ exchange.date }}</p>
+<ul>{% for k,v in exchange.rates.items %}<li>1 USD = {{ v }} {{ k }}</li>{% endfor %}</ul>
+{% endif %}
+</div>
+</div>
+</div>
+{% endblock %}

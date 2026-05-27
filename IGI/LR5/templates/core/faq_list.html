@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}Словарь терминов{% endblock %}
+{% block content %}
+<h1>Словарь терминов и понятий</h1>
+<form method="get" class="row g-2 mb-3">
+<div class="col-md-6"><input type="search" name="q" value="{{ q }}" class="form-control" placeholder="Поиск"></div>
+<div class="col-md-4"><select name="sort" class="form-select">
+<option value="-created_at" {% if sort == '-created_at' %}selected{% endif %}>Новые</option>
+<option value="question" {% if sort == 'question' %}selected{% endif %}>По вопросу</option>
+</select></div>
+<div class="col-md-2"><button class="btn btn-primary w-100">OK</button></div>
+</form>
+{% for faq in faqs %}
+<div class="card mb-2"><div class="card-body">
+<h5>{{ faq.question }}</h5>
+<p>{{ faq.answer }}</p>
+<small class="text-muted">{{ faq.created_at|date:"d.m.Y" }}</small>
+</div></div>
+{% empty %}<p>Записей нет.</p>{% endfor %}
+{% endblock %}

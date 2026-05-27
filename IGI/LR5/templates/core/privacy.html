@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}Политика конфиденциальности{% endblock %}
+{% block content %}
+<h1>{{ policy.title|default:"Политика конфиденциальности" }}</h1>
+{% if policy %}
+<p class="text-muted">Обновлено: {{ policy.updated_at|date:"d.m.Y H:i" }} UTC</p>
+<p>{{ policy.content|linebreaks }}</p>
+{% else %}
+<p>Текст политики будет опубликован позже.</p>
+{% endif %}
+{% endblock %}

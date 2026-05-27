@@ -1,0 +1,11 @@
+  1. Sentences: 0
+  2. Declarative sentences: 0
+  3. Interrogative_sentences: 0
+  4. Exclamatory sentences: 0
+  5. Average sentence length: 0
+  6. Average word length: 0
+  7. Years: 
+  8. Specific ending words: 
+  9. Words starting with vowel letter: 0
+  10. Words with two identical letters in a row with index: Not found
+  11. Words in alphabetical order: 

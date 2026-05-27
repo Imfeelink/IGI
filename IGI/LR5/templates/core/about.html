@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}О компании{% endblock %}
+{% block content %}
+<h1>О компании</h1>
+{% if company %}
+<div class="row">
+    <div class="col-md-8">
+        <p>{{ company.description }}</p>
+        <h3>История</h3>
+        <p>{{ company.history }}</p>
+        <p><strong>Телефон:</strong> {{ company.phone }}</p>
+        <p><strong>Email:</strong> {{ company.email }}</p>
+        <p><strong>Адрес:</strong> {{ company.address }}</p>
+    </div>
+    {% if company.logo %}
+    <div class="col-md-4">
+        <img src="{{ company.logo.url }}" alt="Логотип" class="img-fluid rounded">
+    </div>
+    {% endif %}
+</div>
+{% else %}
+<p>Информация о компании скоро появится.</p>
+{% endif %}
+{% endblock %}

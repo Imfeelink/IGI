@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+{% block title %}{{ vacancy.title }}{% endblock %}
+{% block content %}
+<h1>{{ vacancy.title }}</h1>
+<p>{{ vacancy.description|linebreaks }}</p>
+<p><strong>Зарплата:</strong> {{ vacancy.salary|default:"по договорённости" }}</p>
+{% endblock %}

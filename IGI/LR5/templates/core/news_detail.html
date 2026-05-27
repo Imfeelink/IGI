@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}{{ news.title }}{% endblock %}
+{% block content %}
+<article>
+{% if news.image %}<img src="{{ news.image.url }}" class="img-fluid rounded mb-3" alt="">{% endif %}
+<h1>{{ news.title }}</h1>
+<p class="text-muted">{{ news.created_at|date:"d.m.Y H:i" }} UTC</p>
+<p>{{ news.content|linebreaks }}</p>
+<a href="{% url 'core:news_list' %}" class="btn btn-secondary">Назад</a>
+</article>
+{% endblock %}
