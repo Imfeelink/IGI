@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+<section>
+    <h1>{{ title }}</h1>
+    <form method="post" class="col-md-8">
+        {% csrf_token %}
+        <fieldset>
+            <legend>Отзыв об объекте</legend>
+            {% if form.non_field_errors %}
+            <div class="alert alert-danger">{{ form.non_field_errors }}</div>
+            {% endif %}
+            <p>
+                <label for="id_property_obj">Объект:</label>
+                <select name="property_obj" id="id_property_obj" required class="form-select">
+                    <option value="">— выберите объект —</option>
+                    {% for value, label in form.fields.property_obj.choices %}
+                        {% if value %}
+                        <option value="{{ value }}" {% if form.property_obj.value|stringformat:"s" == value|stringformat:"s" %}selected{% endif %}>{{ label }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+                {% if form.property_obj.errors %}<span class="text-danger">{{ form.property_obj.errors }}</span>{% endif %}
+            </p>
+            <p>
+                <label for="id_rating">Оценка (1–5):</label>
+                <input type="number" name="rating" id="id_rating" required min="1" max="5" step="1"
+                       class="form-control" value="{{ form.rating.value|default:'5' }}">
+                {% if form.rating.errors %}<span class="text-danger">{{ form.rating.errors }}</span>{% endif %}
+            </p>
+            <p>
+                <label for="id_text">Текст отзыва:</label>
+                <textarea name="text" id="id_text" required minlength="10" rows="4" cols="50"
+                          class="form-control" placeholder="Опишите впечатление об объекте"
+                          spellcheck="true">{{ form.text.value|default:'' }}</textarea>
+                {% if form.text.errors %}<span class="text-danger">{{ form.text.errors }}</span>{% endif %}
+            </p>
+            <p>
+                <label for="id_color_demo">Цвет акцента в кабинете:</label>
+                <input type="color" id="id_color_demo" value="#1a365d">
+            </p>
+            <p>
+                <label for="id_range_demo">Насколько рекомендуете объект:</label>
+                <input type="range" id="id_range_demo" min="1" max="10" value="8">
+            </p>
+            <p>
+                <button type="submit" class="btn btn-primary">Отправить</button>
+                <button type="reset" class="btn btn-outline-secondary">Очистить</button>
+            </p>
+        </fieldset>
+    </form>
+</section>
+{% endblock %}

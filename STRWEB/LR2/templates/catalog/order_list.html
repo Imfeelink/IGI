@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}Мои заказы{% endblock %}
+{% block content %}
+<h1>Мои заказы</h1>
+<a href="{% url 'catalog:order_create' %}" class="btn btn-success mb-3">Новый заказ</a>
+{% for order in orders %}
+<div class="card mb-2">
+<div class="card-body">
+<p>#{{ order.id }} — {{ order.created_at|date:"d.m.Y H:i" }} UTC — {{ order.total }} BYN</p>
+<ul>{% for m in order.movies.all %}<li>{{ m.title }}</li>{% endfor %}</ul>
+</div>
+</div>
+{% empty %}<p>Заказов нет.</p>{% endfor %}
+{% endblock %}

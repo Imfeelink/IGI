@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+{% block title %}{{ movie.title }}{% endblock %}
+{% block content %}
+<h1>{{ movie.title }}</h1>
+<p>{{ movie.description }}</p>
+<p>Категория: {{ movie.category.name }} | {{ movie.duration }} мин | {{ movie.price }} BYN</p>
+{% endblock %}
