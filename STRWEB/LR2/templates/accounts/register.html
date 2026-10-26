@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% block title %}Регистрация{% endblock %}
+{% block content %}
+<section>
+    <h1>Регистрация (18+)</h1>
+    <form method="post" action="{% url 'accounts:register' %}" autocomplete="on" class="col-md-8" novalidate>
+        {% csrf_token %}
+        <fieldset>
+            <legend>Основные данные</legend>
+            {% if form.non_field_errors %}
+            <div class="alert alert-danger">{{ form.non_field_errors }}</div>
+            {% endif %}
+            <p>
+                <label for="id_username">Логин:</label>
+                <input type="text" name="username" id="id_username" required maxlength="150"
+                       class="form-control" autofocus value="{{ form.username.value|default:'' }}">
+                {% if form.username.errors %}<span class="text-danger">{{ form.username.errors }}</span>{% endif %}
+            </p>
+            <p>
+                <label for="id_email">Email:</label>
+                <input type="email" name="email" id="id_email" required class="form-control"
+                       placeholder="user@mail.by" value="{{ form.email.value|default:'' }}">
+                {% if form.email.errors %}<span class="text-danger">{{ form.email.errors }}</span>{% endif %}
+            </p>
+            <p>
+                <label for="id_password1">Пароль:</label>
+                <input type="password" name="password1" id="id_password1" required class="form-control"
+                       autocomplete="new-password" minlength="8">
+                {% if form.password1.errors %}<span class="text-danger">{{ form.password1.errors }}</span>{% endif %}
+            </p>
+            <p>
+                <label for="id_password2">Повтор пароля:</label>
+                <input type="password" name="password2" id="id_password2" required class="form-control"
+                       autocomplete="new-password">
+                {% if form.password2.errors %}<span class="text-danger">{{ form.password2.errors }}</span>{% endif %}
+            </p>
+        </fieldset>
+        <fieldset>
+            <legend>Профиль покупателя</legend>
+            <p>
+                <label for="id_birth_date">Дата рождения:</label>
+                <input type="date" name="birth_date" id="id_birth_date" required class="form-control"
+                       value="{{ form.birth_date.value|default:'' }}">
+                {% if form.birth_date.errors %}<span class="text-danger">{{ form.birth_date.errors }}</span>{% endif %}
+            </p>
+            <p>
+                <label for="id_phone">Телефон:</label>
+                <input type="tel" name="phone" id="id_phone" required class="form-control"
+                       pattern="\+375\s\((25|29|33|44)\)\s\d{3}-\d{2}-\d{2}"
+                       placeholder="+375 (29) 123-45-67"
+                       value="{{ form.phone.value|default:'' }}">
+                {% if form.phone.errors %}<span class="text-danger">{{ form.phone.errors }}</span>{% endif %}
+            </p>
+            <p>
+                <label for="id_timezone">Часовой пояс:</label>
+                <select name="timezone" id="id_timezone" required class="form-select">
+                    <option value="Europe/Minsk" selected>Europe/Minsk (UTC+3)</option>
+                    <option value="UTC">UTC</option>
+                    <option value="Europe/Moscow">Europe/Moscow (UTC+3)</option>
+                </select>
+            </p>
+        </fieldset>
+        <p>
+            <button type="submit" class="btn btn-success">Зарегистрироваться</button>
+            <button type="reset" class="btn btn-outline-secondary">Сбросить</button>
+        </p>
+    </form>
+</section>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %}Политика конфиденциальности{% endblock %}
+{% block content %}
+<article>
+    <h1>{{ policy.title|default:"Политика конфиденциальности" }}</h1>
+    {% if policy %}
+    <p class="text-muted">
+        Обновлено:
+        <time datetime="{{ policy.updated_at|date:'c' }}">{{ policy.updated_at|date:"d.m.Y H:i" }}</time> UTC
+    </p>
+    <p>
+        Настоящий документ описывает обработку <abbr title="Персональные данные">ПДн</abbr>
+        клиентов риэлтерского агентства. Выделение важных положений:
+        <mark>согласие субъекта обязательно</mark> до заключения договора.
+    </p>
+    <blockquote cite="{% url 'core:privacy' %}">
+        {{ policy.content }}
+    </blockquote>
+    <p>
+        <a href="/static/docs/privacy.txt"
+           download="politika-konfidencialnosti.txt"
+           type="text/plain"
+           hreflang="ru"
+           title="Скачать текстовую версию политики">
+            Скачать политику (TXT)
+        </a>
+    </p>
+    {% else %}
+    <p>Текст политики будет опубликован позже.</p>
+    {% endif %}
+</article>
+{% endblock %}

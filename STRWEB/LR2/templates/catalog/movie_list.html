@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}Фильмы{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between mb-3">
+<h1>Фильмы</h1>
+{% if user.is_staff %}<a href="{% url 'catalog:movie_create' %}" class="btn btn-success">+ Фильм</a>{% endif %}
+</div>
+<form method="get" class="row g-2 mb-3">
+<div class="col-md-6"><input type="search" name="q" value="{{ q }}" class="form-control" placeholder="Поиск фильмов"></div>
+<div class="col-md-4"><select name="sort" class="form-select">
+<option value="title" {% if sort == 'title' %}selected{% endif %}>Название А-Я</option>
+<option value="-price" {% if sort == '-price' %}selected{% endif %}>Цена ↓</option>
+<option value="price" {% if sort == 'price' %}selected{% endif %}>Цена ↑</option>
+<option value="-duration" {% if sort == '-duration' %}selected{% endif %}>Длительность ↓</option>
+</select></div>
+<div class="col-md-2"><button class="btn btn-primary w-100">OK</button></div>
+</form>
+<div class="row">
+{% for movie in movies %}
+<div class="col-md-4 mb-3">
+<div class="card h-100">
+{% if movie.poster %}<img src="{{ movie.poster.url }}" class="card-img-top" style="height:200px;object-fit:cover">{% endif %}
+<div class="card-body">
+<h5>{{ movie.title }}</h5>
+<p>{{ movie.category.name }} · {{ movie.duration }} мин · {{ movie.price }} BYN</p>
+<a href="{% url 'catalog:movie_detail' movie.pk %}" class="btn btn-sm btn-primary">Подробнее</a>
+{% if user.is_staff %}
+<a href="{% url 'catalog:movie_update' movie.pk %}" class="btn btn-sm btn-warning">Изм.</a>
+<a href="{% url 'catalog:movie_delete' movie.pk %}" class="btn btn-sm btn-danger">Удал.</a>
+{% endif %}
+</div>
+</div>
+</div>
+{% empty %}<p>Фильмов нет.</p>{% endfor %}
+</div>
+{% endblock %}

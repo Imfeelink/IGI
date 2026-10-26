@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+{% block title %}Удалить отзыв{% endblock %}
+{% block content %}
+<h1>Удалить отзыв?</h1>
+<form method="post">{% csrf_token %}<button class="btn btn-danger">Удалить</button></form>
+{% endblock %}

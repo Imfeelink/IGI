@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %}Вход{% endblock %}
+{% block content %}
+<section>
+    <h1>Вход</h1>
+    <form method="post" action="{% url 'accounts:login' %}" autocomplete="on" class="col-md-6">
+        {% csrf_token %}
+        <fieldset>
+            <legend>Учётные данные</legend>
+            {% if form.non_field_errors %}
+            <div class="alert alert-danger">{{ form.non_field_errors }}</div>
+            {% endif %}
+            <p>
+                <label for="id_username">Логин:</label>
+                <input type="text" name="username" id="id_username" required
+                       autofocus maxlength="150" class="form-control"
+                       value="{{ form.username.value|default:'' }}">
+            </p>
+            <p>
+                <label for="id_password">Пароль:</label>
+                <input type="password" name="password" id="id_password" required
+                       maxlength="128" class="form-control" autocomplete="current-password">
+            </p>
+            <p>
+                <button type="submit" class="btn btn-primary">Войти</button>
+                <button type="reset" class="btn btn-outline-secondary">Очистить</button>
+            </p>
+        </fieldset>
+    </form>
+    <p>Нет аккаунта? <a href="{% url 'accounts:register' %}">Регистрация</a></p>
+</section>
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block title %}Словарь терминов{% endblock %}
+{% block content %}
+<section>
+    <h1>Словарь терминов и понятий</h1>
+    <p>Часто задаваемые вопросы по недвижимости. Нажмите на вопрос, чтобы увидеть ответ.</p>
+
+    <form method="get" class="row g-2 mb-3" role="search">
+        <fieldset class="col-md-12">
+            <legend class="visually-hidden">Поиск по словарю</legend>
+            <div class="row g-2">
+                <div class="col-md-6">
+                    <label for="faq-q" class="form-label">Поиск</label>
+                    <input type="search" name="q" id="faq-q" value="{{ q }}" class="form-control"
+                           placeholder="Например: ипотека" maxlength="100">
+                </div>
+                <div class="col-md-4">
+                    <label for="faq-sort" class="form-label">Сортировка</label>
+                    <select name="sort" id="faq-sort" class="form-select">
+                        <option value="-created_at" {% if sort == '-created_at' %}selected{% endif %}>Новые</option>
+                        <option value="question" {% if sort == 'question' %}selected{% endif %}>По вопросу</option>
+                    </select>
+                </div>
+                <div class="col-md-2 d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary w-100">OK</button>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+
+    <dl>
+        {% for faq in faqs %}
+        <div class="mb-2">
+            <details {% if forloop.first %}open{% endif %} id="faq-{{ faq.pk }}">
+                <summary>
+                    <dt style="display:inline;">{{ faq.question }}</dt>
+                </summary>
+                <dd>
+                    {{ faq.answer }}
+                    <br><small class="text-muted">Добавлено:
+                        <time datetime="{{ faq.created_at|date:'Y-m-d' }}">{{ faq.created_at|date:"d.m.Y" }}</time>
+                    </small>
+                </dd>
+            </details>
+        </div>
+        {% empty %}
+        <p>Записей нет.</p>
+        {% endfor %}
+    </dl>
+</section>
+{% endblock %}
