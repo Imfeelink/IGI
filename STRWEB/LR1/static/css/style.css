@@ -1,0 +1,13 @@
+body { font-family: system-ui, sans-serif; }
+.card img { object-fit: cover; }
+pre { font-family: monospace; font-size: 0.9rem; }
+.navbar .nav-logout-form {
+    display: flex;
+    align-items: stretch;
+    margin: 0;
+}
+.navbar .nav-logout-form button.nav-link {
+    background: none;
+    border: none;
+    cursor: pointer;
+}

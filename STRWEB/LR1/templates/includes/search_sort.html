@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}Поиск и сортировка{% endblock %}
+<form method="get" class="row g-2 mb-3">
+    <div class="col-md-6">
+        <input type="search" name="q" value="{{ q }}" class="form-control" placeholder="Поиск...">
+    </div>
+    <div class="col-md-4">
+        <select name="sort" class="form-select">
+            {% for val, label in sort_options %}
+            <option value="{{ val }}" {% if sort == val %}selected{% endif %}>{{ label }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="col-md-2">
+        <button type="submit" class="btn btn-outline-primary w-100">Применить</button>
+    </div>
+</form>

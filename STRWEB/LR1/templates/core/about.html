@@ -1,0 +1,215 @@
+{% extends 'base.html' %}
+{% block title %}О компании — {{ site_name }}{% endblock %}
+{% block content %}
+{% if company %}
+<article itemscope itemtype="https://schema.org/Organization">
+    <header>
+        <h1 itemprop="name">{{ company.title }}</h1>
+        {% if company.logo %}
+        <figure>
+            <img src="{{ company.logo.url }}" alt="Логотип {{ company.title }}"
+                 itemprop="logo" width="200" title="Официальный логотип">
+            <figcaption>Официальный логотип агентства</figcaption>
+        </figure>
+        {% endif %}
+    </header>
+
+    <section>
+        <h2>О нас</h2>
+        <p itemprop="description">
+            {{ company.description }}
+            Мы работаем с <abbr title="Общество с ограниченной ответственностью">ООО</abbr>
+            и частными лицами. Ключевой термин —
+            <dfn title="Риэлтерские услуги">риэлтерские услуги</dfn> —
+            посредничество при купле-продаже недвижимости.
+        </p>
+        <p>
+            Как сказал классик:
+            <q cite="https://ru.wikipedia.org/wiki/%D0%9D%D0%B5%D0%B4%D0%B2%D0%B8%D0%B6%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D1%8C">
+                Мой дом — моя крепость
+            </q>
+            (источник: <cite>английская пословица</cite>).
+        </p>
+        <p>
+            Основаны в <time datetime="2012">2012</time> году.
+            Сегодня для нас важно найти <mark>надёжный</mark> объект для клиента.
+        </p>
+        <blockquote cite="https://example.com/mission">
+            Миссия агентства — честные сделки и прозрачная статистика коммерческого отдела.
+        </blockquote>
+    </section>
+
+    <hr>
+
+    <section id="history">
+        <h2>История по годам</h2>
+        <nav aria-label="Навигация по годам">
+            <p>Перейти к году:
+                {% for hy in company.history_years.all %}
+                <a href="#year-{{ hy.year }}">{{ hy.year }}</a>{% if not forloop.last %} · {% endif %}
+                {% empty %}
+                <span>История будет дополнена.</span>
+                {% endfor %}
+            </p>
+        </nav>
+        <ol>
+            {% for hy in company.history_years.all %}
+            <li id="year-{{ hy.year }}">
+                <strong><time datetime="{{ hy.year }}">{{ hy.year }}</time>:</strong>
+                {{ hy.event }}
+            </li>
+            {% empty %}
+            <li>{{ company.history }}</li>
+            {% endfor %}
+        </ol>
+        <p><a href="#history">↑ К началу истории</a></p>
+    </section>
+
+    <section>
+        <h2>Реквизиты</h2>
+        <address itemprop="address">
+            <pre>{{ company.requisites|default:company.address }}</pre>
+            Тел.: <a href="tel:{{ company.phone }}" itemprop="telephone">{{ company.phone }}</a><br>
+            Email: <a href="mailto:{{ company.email }}" itemprop="email">{{ company.email }}</a>
+        </address>
+    </section>
+
+    <section>
+        <h2>Сертификат</h2>
+        <p>Сертификат соответствия риэлтерских услуг:</p>
+        <table border="1">
+            <caption>Сертификат соответствия</caption>
+            <thead>
+                <tr>
+                    <th id="cert-field">Поле</th>
+                    <th id="cert-value">Значение</th>
+                    <th id="cert-note">Примечание</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th id="cert-num" headers="cert-field">Номер</th>
+                    <td headers="cert-value cert-num">BY/112 03.01.001 01234</td>
+                    <td headers="cert-note cert-num" rowspan="2">Выдан БелГИСС</td>
+                </tr>
+                <tr>
+                    <th id="cert-date" headers="cert-field">Дата выдачи</th>
+                    <td headers="cert-value cert-date">
+                        <time datetime="2024-03-15">15/03/2024</time>
+                    </td>
+                </tr>
+                <tr>
+                    <th id="cert-until" headers="cert-field">Действителен до</th>
+                    <td headers="cert-value cert-until">
+                        <time datetime="2027-03-15">15/03/2027</time>
+                    </td>
+                    <td headers="cert-note cert-until">3 года</td>
+                </tr>
+                <tr>
+                    <th id="cert-scope" headers="cert-field">Область</th>
+                    <td headers="cert-value cert-scope cert-note" colspan="2">
+                        Риэлтерские услуги по купле-продаже недвижимости
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3">{{ company.certificate_text|default:"—" }}</td>
+                </tr>
+            </tfoot>
+        </table>
+    </section>
+
+    <section>
+        <h2>Видео о компании</h2>
+        {% if company.video_file %}
+        <video width="480" height="270" controls preload="metadata"
+               {% if company.logo %}poster="{{ company.logo.url }}"{% endif %}>
+            <source src="{{ company.video_file.url }}" type="video/mp4">
+            Видео недоступно в этом браузере.
+        </video>
+        {% elif company.video_url %}
+        <iframe src="{{ company.video_url }}"
+                width="560" height="315"
+                title="Видео о компании {{ company.title }}"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen>
+            Видео недоступно.
+        </iframe>
+        {% else %}
+        <p>Видео скоро появится.</p>
+        {% endif %}
+    </section>
+
+    <section>
+        <h2>Аудио-приветствие</h2>
+        {% if company.audio_file %}
+        <audio controls preload="none">
+            <source src="{{ company.audio_file.url }}" type="audio/mpeg">
+            Аудио не поддерживается.
+            <a href="{{ company.audio_file.url }}" download="welcome.mp3">Скачать файл</a>.
+        </audio>
+        {% else %}
+        <audio controls>
+            <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+            Аудио не поддерживается браузером.
+        </audio>
+        {% endif %}
+    </section>
+
+    <section>
+        <h2>Как подобрать объект</h2>
+        <p>
+            В каталоге укажите минимальную цену — параметр
+            <var>мин. цена</var>. Например, введите
+            <kbd>50000</kbd> и нажмите поиск.
+        </p>
+        <p>
+            В ответе вы увидите сообщение вроде
+            <samp>Найдено: 6 объектов</samp>.
+            Номер договора после сделки придёт в формате
+            <code>RP-2026-014</code>.
+        </p>
+    </section>
+
+    <section>
+        <h2>О доме</h2>
+        <p>
+            Дом мой тих, как утренний свет,<br>
+            В окнах — город и синий рассвет,<br>
+            Ключ в замке — и спокойный уют,<br>
+            Стены помнят, кого они ждут.
+        </p>
+        <p>
+            Самое длинное слово рынка:
+            многоквартирно<wbr>малоэтажн<wbr>о<wbr>комплекс
+        </p>
+    </section>
+
+    <aside>
+        <details>
+            <summary>Полезные термины</summary>
+            <dl>
+                <dt>Ипотека</dt>
+                <dd>Кредит под залог приобретаемой недвижимости.</dd>
+                <dt>Кадастр</dt>
+                <dd>Государственный реестр объектов недвижимости.</dd>
+            </dl>
+        </details>
+    </aside>
+
+    <section>
+        <h2>Карта офиса</h2>
+        <iframe
+            src="https://www.openstreetmap.org/export/embed.html?bbox=27.55%2C53.90%2C27.57%2C53.91&amp;layer=mapnik"
+            width="100%" height="250" title="Карта офиса РиэлтПрайм"
+            sandbox="allow-scripts allow-same-origin">
+            Карта недоступна.
+        </iframe>
+    </section>
+</article>
+{% else %}
+<p>Информация о компании скоро появится.</p>
+{% endif %}
+{% endblock %}

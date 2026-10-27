@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load date_filters %}
+{% block title %}Владельцы{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between mb-3">
+<h1>Владельцы</h1>
+<a href="{% url 'catalog:owner_create' %}" class="btn btn-success">+ Владелец</a>
+</div>
+<form method="get" class="mb-3"><input type="search" name="q" value="{{ q }}" class="form-control" placeholder="Поиск"></form>
+<table class="table table-striped">
+<thead><tr><th>ФИО</th><th>Телефон</th><th>Email</th><th>ДР</th><th></th></tr></thead>
+<tbody>
+{% for o in owners %}
+<tr>
+<td>{{ o.full_name }}</td><td>{{ o.phone }}</td><td>{{ o.email }}</td><td>{{ o.birth_date|ddmmyyyy }}</td>
+<td>
+<a href="{% url 'catalog:owner_update' o.pk %}" class="btn btn-sm btn-warning">Изм.</a>
+<a href="{% url 'catalog:owner_delete' o.pk %}" class="btn btn-sm btn-danger">Удал.</a>
+</td>
+</tr>
+{% empty %}<tr><td colspan="5">Нет записей</td></tr>{% endfor %}
+</tbody>
+</table>
+{% endblock %}
