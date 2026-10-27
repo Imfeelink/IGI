@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %}Контакты{% endblock %}
+{% block content %}
+<section>
+    <h1>Контакты</h1>
+    <p>Свяжитесь с сотрудниками агентства по телефону или электронной почте.</p>
+
+    <div class="row">
+        {% for emp in employees %}
+        <div class="col-md-4 mb-3">
+            <article class="text-center p-3 border rounded h-100">
+                <figure>
+                    {% if emp.photo %}
+                    <img src="{{ emp.photo.url }}" class="rounded-circle mx-auto"
+                         width="100" height="100" style="object-fit:cover;"
+                         alt="Фото: {{ emp.name }}" title="{{ emp.name }} — {{ emp.position }}">
+                    {% else %}
+                    <img src="/static/favicon.svg" class="rounded-circle mx-auto"
+                         width="64" height="64" alt="Нет фото">
+                    {% endif %}
+                    <figcaption>{{ emp.position }}</figcaption>
+                </figure>
+                <h2 class="h5">{{ emp.name }}</h2>
+                <address>
+                    <a href="tel:{{ emp.phone }}">{{ emp.phone }}</a><br>
+                    <a href="mailto:{{ emp.email }}?subject=Вопрос%20по%20недвижимости">{{ emp.email }}</a>
+                </address>
+            </article>
+        </div>
+        {% empty %}
+        <p>Сотрудники не добавлены.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

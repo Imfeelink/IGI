@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load date_filters %}
+{% block title %}Аналитика{% endblock %}
+{% block content %}
+<h1>Финансовая аналитика (matplotlib, Python)</h1>
+<div class="row mb-4">
+  <div class="col-md-4">
+    <div class="card p-3">
+      <h5>Общая сумма продаж</h5>
+      <p class="fs-4">{{ total_sales }} BYN</p>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card p-3">
+      <h5>Среднее / Медиана / Мода</h5>
+      <p>{{ mean_amount|floatformat:2 }} / {{ median_amount|floatformat:2 }} / {{ mode_amount|floatformat:2 }} BYN</p>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card p-3">
+      <h5>Возраст клиентов (ср./мед.)</h5>
+      <p>{{ mean_age|floatformat:1 }} / {{ median_age|floatformat:1 }} лет</p>
+    </div>
+  </div>
+</div>
+<div class="row mb-4">
+  <div class="col-md-6"><p><strong>Популярная категория:</strong> {{ popular_category.name|default:"—" }}</p></div>
+  <div class="col-md-6"><p><strong>Самая прибыльная категория:</strong> {{ profitable_category.name|default:"—" }}</p></div>
+</div>
+<div class="row mb-4">
+  <div class="col-md-6">
+    <h5>Объекты (А-Я)</h5>
+    <ul>{% for p in properties_alpha %}<li>{{ p.title }} — {{ p.price }} BYN</li>{% empty %}<li>Нет данных</li>{% endfor %}</ul>
+  </div>
+  <div class="col-md-6">
+    <h5>Клиенты (А-Я)</h5>
+    <ul>{% for c in clients_alpha %}<li>{{ c.username }}</li>{% empty %}<li>Нет данных</li>{% endfor %}</ul>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6"><img src="{{ chart_sales }}" alt="Продажи" class="img-fluid border"></div>
+  <div class="col-md-6"><img src="{{ chart_categories }}" alt="Категории" class="img-fluid border"></div>
+</div>
+<p class="text-muted mt-3">Объектов: {{ total_properties }} | Сделок: {{ total_sales_count }}</p>
+{% endblock %}

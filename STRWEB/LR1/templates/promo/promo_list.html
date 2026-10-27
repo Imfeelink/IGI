@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}Промокоды{% endblock %}
+{% block content %}
+<h1>Промокоды и купоны</h1>
+<form method="get" class="row g-2 mb-3">
+<div class="col-md-6"><input type="search" name="q" value="{{ q }}" class="form-control"></div>
+<div class="col-md-4"><select name="sort" class="form-select">
+<option value="-valid_until" {% if sort == '-valid_until' %}selected{% endif %}>По сроку</option>
+<option value="-discount_percent" {% if sort == '-discount_percent' %}selected{% endif %}>По скидке</option>
+</select></div>
+<div class="col-md-2"><button class="btn btn-primary w-100">OK</button></div>
+</form>
+<table class="table">
+<thead><tr><th>Код</th><th>Скидка</th><th>Описание</th><th>Статус</th><th>До</th></tr></thead>
+<tbody>
+{% for p in promos %}
+<tr class="{% if not p.is_active %}table-secondary{% endif %}">
+<td>{{ p.code }}</td>
+<td>{{ p.discount_percent }}%</td>
+<td>{{ p.description }}</td>
+<td>{% if p.is_active and p.valid_until >= now %}Активен{% else %}Архив{% endif %}</td>
+<td>{{ p.valid_until|date:"d.m.Y H:i" }} UTC</td>
+</tr>
+{% empty %}<tr><td colspan="5">Нет промокодов</td></tr>{% endfor %}
+</tbody>
+</table>
+{% endblock %}

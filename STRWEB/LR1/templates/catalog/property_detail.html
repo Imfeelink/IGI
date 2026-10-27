@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load date_filters %}
+{% block title %}{{ property.title }} — {{ site_name }}{% endblock %}
+{% block content %}
+<article itemscope itemtype="https://schema.org/Product">
+    <h1 itemprop="name">{{ property.title }}</h1>
+
+    {% if property.image %}
+    <figure>
+        <img src="{{ property.image.url }}"
+             alt="Фото: {{ property.title }}"
+             itemprop="image"
+             width="640"
+             title="{{ property.title }}"
+             class="img-fluid">
+        <figcaption>Фото объекта «{{ property.title }}»</figcaption>
+    </figure>
+    {% endif %}
+
+    <p itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+        <strong>Цена:</strong>
+        <span itemprop="price">{{ property.price }}</span>
+        <meta itemprop="priceCurrency" content="BYN"> BYN
+        | <strong>Категория:</strong> <span itemprop="category">{{ property.category.name }}</span>
+    </p>
+    <p itemprop="description">{{ property.description }}</p>
+    <p><strong>Характеристики:</strong> {{ property.characteristics }}</p>
+    <p><strong>Владелец:</strong> {{ property.owner.full_name }}
+       (<a href="tel:{{ property.owner.phone }}">{{ property.owner.phone }}</a>)
+    </p>
+    {% if property.employee %}
+    <p><strong>Риэлтор:</strong> {{ property.employee.username }}</p>
+    {% endif %}
+    <p>
+        <strong>Добавлен:</strong>
+        <time datetime="{{ property.created_at|date:'Y-m-d' }}">{{ property.created_at|ddmmyyyy }}</time>
+        | <strong>Изменён:</strong>
+        <time datetime="{{ property.updated_at|date:'Y-m-d' }}">{{ property.updated_at|ddmmyyyy }}</time>
+    </p>
+    {% if property.amenities.exists %}
+    <p><strong>Удобства:</strong>
+        <ul>
+            {% for a in property.amenities.all %}
+            <li>{{ a.name }}</li>
+            {% endfor %}
+        </ul>
+    </p>
+    {% endif %}
+
+    {% if not property.is_sold %}
+    <form method="post" action="{% url 'catalog:cart_add' property.pk %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-primary" title="Добавить объект в корзину" accesskey="c">
+            Добавить в корзину
+        </button>
+    </form>
+    {% else %}
+    <p><strong>Объект продан.</strong></p>
+    {% endif %}
+
+    {% if user.is_staff %}
+    <p>
+        <a href="{% url 'catalog:property_update' property.pk %}">Редактировать</a> |
+        <a href="{% url 'catalog:property_delete' property.pk %}">Удалить</a>
+    </p>
+    {% endif %}
+</article>
+{% endblock %}

@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% block title %}Оплата — {{ site_name }}{% endblock %}
+{% block content %}
+<section>
+    <h1>Страница оплаты</h1>
+    <p>К оплате: <strong>{{ total }} BYN</strong> ({{ items|length }} поз.)</p>
+
+    <form method="post" action="{% url 'catalog:checkout' %}" id="checkout-form" autocomplete="on" novalidate>
+        {% csrf_token %}
+        <fieldset>
+            <legend>Контактные данные</legend>
+            <p>
+                <label for="id_full_name">ФИО:</label>
+                <input type="text" name="full_name" id="id_full_name" required
+                       maxlength="150" size="40" placeholder="Иванов Иван Иванович"
+                       value="{{ form.full_name.value|default:'' }}"
+                       autofocus>
+                {% if form.full_name.errors %}<span>{{ form.full_name.errors }}</span>{% endif %}
+            </p>
+            <p>
+                <label for="id_email">Email:</label>
+                <input type="email" name="email" id="id_email" required
+                       placeholder="user@example.com"
+                       value="{{ form.email.value|default:'' }}">
+                {% if form.email.errors %}<span>{{ form.email.errors }}</span>{% endif %}
+            </p>
+            <p>
+                <label for="id_phone">Телефон:</label>
+                <input type="tel" name="phone" id="id_phone" required
+                       pattern="\+375\s\((25|29|33|44)\)\s\d{3}-\d{2}-\d{2}"
+                       placeholder="+375 (29) 123-45-67"
+                       list="phone-hints"
+                       value="{{ form.phone.value|default:'' }}">
+                <datalist id="phone-hints">
+                    <option value="+375 (29) 111-11-11">
+                    <option value="+375 (33) 222-22-22">
+                    <option value="+375 (44) 333-33-33">
+                </datalist>
+                {% if form.phone.errors %}<span>{{ form.phone.errors }}</span>{% endif %}
+            </p>
+        </fieldset>
+
+        <fieldset>
+            <legend>Способ оплаты</legend>
+            <p>
+                <label for="id_payment_method">Выберите способ:</label>
+                <select name="payment_method" id="id_payment_method" required size="1">
+                    <option value="" disabled {% if not form.payment_method.value %}selected{% endif %}>— выберите —</option>
+                    <optgroup label="Безналичный расчёт">
+                        <option value="card" {% if form.payment_method.value == 'card' %}selected{% endif %}>Банковская карта</option>
+                        <option value="erip" {% if form.payment_method.value == 'erip' %}selected{% endif %}>ЕРИП</option>
+                    </optgroup>
+                    <optgroup label="Другое">
+                        <option value="cash" {% if form.payment_method.value == 'cash' %}selected{% endif %}>Наличные при сделке</option>
+                    </optgroup>
+                </select>
+            </p>
+            <p>
+                <label for="id_promo_code">Промокод:</label>
+                <input type="text" name="promo_code" id="id_promo_code" maxlength="50"
+                       placeholder="REALTY01" list="promo-list"
+                       value="{{ form.promo_code.value|default:'' }}">
+                <datalist id="promo-list">
+                    <option value="REALTY01">
+                    <option value="REALTY02">
+                </datalist>
+            </p>
+            <p>
+                <label for="id_comment">Комментарий:</label><br>
+                <textarea name="comment" id="id_comment" cols="45" rows="4"
+                          maxlength="450" placeholder="Пожелания к сделке"
+                          spellcheck="true">{{ form.comment.value|default:'' }}</textarea>
+            </p>
+            <p>
+                <label>
+                    <input type="checkbox" name="agree" id="id_agree" value="true" required
+                           {% if form.agree.value %}checked{% endif %}>
+                    Согласен с условиями оплаты
+                </label>
+                {% if form.agree.errors %}<span>{{ form.agree.errors }}</span>{% endif %}
+            </p>
+        </fieldset>
+
+        <p>
+            <button type="submit">Оплатить</button>
+            <button type="reset">Очистить</button>
+            <a href="{% url 'catalog:cart' %}">Вернуться в корзину</a>
+        </p>
+    </form>
+
+    <hr>
+    <h2>Состав заказа</h2>
+    <ul>
+        {% for item in items %}
+        <li>{{ item.property.title }} × {{ item.quantity }} = {{ item.line_total }} BYN</li>
+        {% endfor %}
+    </ul>
+</section>
+{% endblock %}
